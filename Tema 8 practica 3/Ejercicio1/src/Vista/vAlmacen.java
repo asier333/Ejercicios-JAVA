@@ -1,11 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vista;
 
 import ejercicio1.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  *
  * @author asier
@@ -56,6 +54,7 @@ public class vAlmacen extends javax.swing.JFrame {
         jTimporteV = new javax.swing.JTextField();
         jBaceptar = new javax.swing.JButton();
         jBcancelar = new javax.swing.JButton();
+        jLproducto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +65,13 @@ public class vAlmacen extends javax.swing.JFrame {
 
         jLabel3.setText("Unidades");
 
+        jTproducto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTproductoFocusLost(evt);
+            }
+        });
+
+        jTunidades.setEditable(false);
         jTunidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTunidadesActionPerformed(evt);
@@ -122,7 +128,6 @@ public class vAlmacen extends javax.swing.JFrame {
 
         jTimporteC.setEditable(false);
 
-        jCproveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jCproveedor.setEnabled(false);
         jCproveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,6 +266,8 @@ public class vAlmacen extends javax.swing.JFrame {
 
         jBcancelar.setText("Cancelar");
 
+        jLproducto.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,7 +284,10 @@ public class vAlmacen extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLproducto))
                             .addComponent(jTunidades, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
@@ -300,7 +310,8 @@ public class vAlmacen extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTproducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTproducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLproducto))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -350,6 +361,25 @@ public class vAlmacen extends javax.swing.JFrame {
         jCproveedor.setEnabled(false);
         // TODO add your handling code here:
     }//GEN-LAST:event_jRventaActionPerformed
+
+    private void jTproductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTproductoFocusLost
+        if (jTproducto.getText().isEmpty()) {
+            jLproducto.setText("Campo vacio");
+            }
+        else{
+            Pattern p = Pattern.compile("^([A-Z]|[a-z])+$");
+            Matcher mat = p.matcher(jTproducto.getText());
+                if (!mat.matches()) {
+                    jLproducto.setText("ostia ya");
+                }
+                else{
+                    jLproducto.setText("");
+                    Ejercicio1.ComprobarProducto(jTproducto, jLproducto, jCproveedor, jTunidades);
+                }
+        }
+       
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTproductoFocusLost
 
     /**
      * @param args the command line arguments
@@ -402,6 +432,7 @@ public class vAlmacen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLproducto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

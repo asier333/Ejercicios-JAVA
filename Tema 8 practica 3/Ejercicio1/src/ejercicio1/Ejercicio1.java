@@ -63,4 +63,29 @@ public class Ejercicio1 {
         p = new Productos("Tomates", 37, 2.84, pro);
         listaProductos.add(p);
     }
+    
+    public static void ComprobarProducto(javax.swing.JTextField jTproducto, javax.swing.JLabel jLproducto, javax.swing.JComboBox<String> jCproveedor, javax.swing.JTextField jTunidades){
+        boolean correcto = false;
+        int i;
+        for (i = 0; i < listaProductos.size() && correcto ==false; i++) {
+            if (jTproducto.getText().equalsIgnoreCase(listaProductos.get(i).getNombre())) {
+               correcto = true;
+                 }
+            }
+         if (correcto==true) {
+            jLproducto.setText("");
+            i--;
+            jCproveedor.removeAllItems();
+            for (int j = 0; j < listaProductos.get(i).getListaProveedores().size(); j++) {
+                jCproveedor.addItem(listaProductos.get(i).getListaProveedores().get(j).getNombre());
+                    }
+            jTunidades.setEditable(true);
+                }
+         else
+             jLproducto.setText("Nombre erroneo");
+             
+         
+            
+    }
+    
 }
